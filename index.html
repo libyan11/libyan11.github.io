@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Game Night</title>
-<meta name="description" content="Free party and card games to play with friends on your phones: Spade & Speak, President & Peasant and Grand Tour Tycoon. No accounts, no downloads.">
+<meta name="description" content="Free party and card games to play with friends on your phones: Spade & Speak, President & Peasant, Grand Tour Tycoon and Ludo. No accounts, no downloads.">
 <meta property="og:title" content="Game Night">
 <meta property="og:description" content="Pick a game and play with friends on your phones. No accounts, no downloads.">
 <meta property="og:type" content="website">
@@ -16,7 +16,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <style>
-/* Layout: one column of three big game cards, each in its own game's colours. No web fonts, no images, no scripts loaded from elsewhere, so it paints at once. */
+/* Layout: one column of big game cards, each in its own game's colours. No web fonts, no images, no scripts loaded from elsewhere, so it paints at once. */
 :root {
   --bg: #14121F; --bg-2: #1E1B2E; --ink: #F4F2FA; --muted: #A9A4C2; --line: rgba(255,255,255,.12);
   --gold: #F2B33D;
@@ -60,6 +60,7 @@ header p { margin: 6px 0 0; color: var(--muted); }
 .president { --c1: #1C5C50; --c2: #0A2925; }
 .president .chips span { background: rgba(232,196,104,.22); }
 .tycoon { --c1: #2D50B5; --c2: #172C6B; }
+.ludo { --c1: #C2373C; --c2: #6E1C2A; }
 /* the game an old link came from */
 .game.came { outline: 3px solid var(--gold); outline-offset: 3px; }
 .came-note { display: none; margin: 0 0 14px; padding: 12px 14px; border-radius: 14px; background: var(--bg-2); border: 1px solid var(--line); font-size: .95rem; }
@@ -110,6 +111,15 @@ footer { margin-top: 28px; text-align: center; color: var(--muted); font-size: .
         <h2>Grand Tour Tycoon</h2>
         <p>Buy property, build hotels and bankrupt your friends.</p>
         <span class="chips"><span>2–8 players</span><span>Online rooms</span><span>Pass and play</span></span>
+      </div>
+      <span class="go" aria-hidden="true">›</span>
+    </a>
+    <a class="game ludo" data-game="ludo" href="/ludo/">
+      <span class="emblem"><svg viewBox="0 0 40 40" aria-hidden="true"><rect x="5" y="5" width="14" height="14" rx="3" fill="#E5484D" stroke="#fff" stroke-width="2"/><rect x="21" y="5" width="14" height="14" rx="3" fill="#2FA46B" stroke="#fff" stroke-width="2"/><rect x="5" y="21" width="14" height="14" rx="3" fill="#3C7BF0" stroke="#fff" stroke-width="2"/><rect x="21" y="21" width="14" height="14" rx="3" fill="#F2B705" stroke="#fff" stroke-width="2"/></svg></span>
+      <div>
+        <h2>Ludo</h2>
+        <p>Roll a 6 to come out, race your four tokens home, capture your friends.</p>
+        <span class="chips"><span>2–4 players</span><span>Online rooms</span><span>vs computer</span></span>
       </div>
       <span class="go" aria-hidden="true">›</span>
     </a>
