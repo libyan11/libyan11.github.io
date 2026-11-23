@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Game Night</title>
-<meta name="description" content="Free party and card games to play with friends on your phones: Spade & Speak, President & Peasant, Grand Tour Tycoon, Ludo and Dominoes. No accounts, no downloads.">
+<meta name="description" content="Free party and card games to play with friends on your phones: Spade & Speak, President & Peasant, Grand Tour Tycoon, Ludo, Dominoes and Liar's Dice. No accounts, no downloads.">
 <meta property="og:title" content="Game Night">
 <meta property="og:description" content="Pick a game and play with friends on your phones. No accounts, no downloads.">
 <meta property="og:type" content="website">
@@ -63,6 +63,8 @@ header p { margin: 6px 0 0; color: var(--muted); }
 .ludo { --c1: #C2373C; --c2: #6E1C2A; }
 .dominoes { --c1: #7A5236; --c2: #3A2416; }
 .dominoes .chips span { background: rgba(63,193,176,.25); }
+.liars { --c1: #1F5560; --c2: #0E262B; }
+.liars .chips span { background: rgba(255,90,95,.28); }
 /* the game an old link came from */
 .game.came { outline: 3px solid var(--gold); outline-offset: 3px; }
 .came-note { display: none; margin: 0 0 14px; padding: 12px 14px; border-radius: 14px; background: var(--bg-2); border: 1px solid var(--line); font-size: .95rem; }
@@ -131,6 +133,15 @@ footer { margin-top: 28px; text-align: center; color: var(--muted); font-size: .
         <h2>Dominoes</h2>
         <p>Match the ends and play out your tiles first. Draw or Block game, first to 100.</p>
         <span class="chips"><span>2–4 players</span><span>Online rooms</span><span>vs computer</span></span>
+      </div>
+      <span class="go" aria-hidden="true">›</span>
+    </a>
+    <a class="game liars" data-game="liars" href="/liars-dice/">
+      <span class="emblem"><svg viewBox="0 0 40 40" aria-hidden="true"><rect x="6" y="6" width="28" height="28" rx="7" fill="#FFFDF7"/><circle cx="14" cy="14" r="3" fill="#FF5A5F"/><circle cx="20" cy="20" r="3" fill="#1B1B22"/><circle cx="26" cy="26" r="3" fill="#1B1B22"/></svg></span>
+      <div>
+        <h2>Liar's Dice</h2>
+        <p>Hide your dice, bid on everyone's, and call &ldquo;Liar!&rdquo; on the bluffers.</p>
+        <span class="chips"><span>2–6 players</span><span>Online rooms</span><span>vs computer</span></span>
       </div>
       <span class="go" aria-hidden="true">›</span>
     </a>
