@@ -5,7 +5,7 @@
 <script>if("serviceWorker"in navigator&&location.protocol==="https:")addEventListener("load",function(){navigator.serviceWorker.register("sw.js").catch(function(){})})</script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Game Night</title>
-<meta name="description" content="Free party and card games to play with friends on your phones: Spade & Speak, President & Peasant, Grand Tour Tycoon, Ludo, Dominoes, Liar's Dice, Four in a Row, Checkers and Dots and Boxes. No accounts, no downloads.">
+<meta name="description" content="Free party and card games to play with friends on your phones: Spade & Speak, President & Peasant, Grand Tour Tycoon, Ludo, Dominoes, Liar's Dice, Four in a Row, Checkers, Dots and Boxes and Mancala. No accounts, no downloads.">
 <meta property="og:title" content="Game Night">
 <meta property="og:description" content="Pick a game and play with friends on your phones. No accounts, no downloads.">
 <meta property="og:type" content="website">
@@ -69,6 +69,7 @@ header p { margin: 6px 0 0; color: var(--muted); }
 .four { --c1: #2D5BD8; --c2: #172A6E; }
 .checkers { --c1: #8A5A3B; --c2: #3A2416; }
 .dots { --c1: #5B4A86; --c2: #2A2140; }
+.mancala { --c1: #9A6236; --c2: #4A2A13; }
 /* the game an old link came from */
 .game.came { outline: 3px solid var(--gold); outline-offset: 3px; }
 .came-note { display: none; margin: 0 0 14px; padding: 12px 14px; border-radius: 14px; background: var(--bg-2); border: 1px solid var(--line); font-size: .95rem; }
@@ -173,6 +174,15 @@ footer { margin-top: 28px; text-align: center; color: var(--muted); font-size: .
         <h2>Dots and Boxes</h2>
         <p>Join the dots, close boxes, steal the long chains. Easy to learn, hard to master.</p>
         <span class="chips"><span>2–4 players</span><span>Online rooms</span><span>vs computer</span></span>
+      </div>
+      <span class="go" aria-hidden="true">›</span>
+    </a>
+    <a class="game mancala" data-game="mancala" href="/mancala/">
+      <span class="emblem"><svg viewBox="0 0 40 40" aria-hidden="true"><rect x="3" y="11" width="34" height="18" rx="9" fill="#6B3F1E"/><circle cx="13" cy="20" r="5" fill="#2E1A0B"/><circle cx="27" cy="20" r="5" fill="#2E1A0B"/><circle cx="12" cy="19" r="1.8" fill="#E8C547"/><circle cx="14.5" cy="21" r="1.8" fill="#7BC96F"/><circle cx="27" cy="20" r="1.8" fill="#E8794C"/></svg></span>
+      <div>
+        <h2>Mancala</h2>
+        <p>Sow seeds, steal from empty pits, fill your store. Ancient strategy game.</p>
+        <span class="chips"><span>2 players</span><span>Online rooms</span><span>vs computer</span></span>
       </div>
       <span class="go" aria-hidden="true">›</span>
     </a>
