@@ -5,7 +5,7 @@
 <script>if("serviceWorker"in navigator&&location.protocol==="https:")addEventListener("load",function(){navigator.serviceWorker.register("sw.js").catch(function(){})})</script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Game Night</title>
-<meta name="description" content="Free party and card games to play with friends on your phones: Spade & Speak, President & Peasant, Grand Tour Tycoon, Ludo, Dominoes, Liar's Dice, Four in a Row, Checkers, Dots and Boxes, Mancala and Imposter. No accounts, no downloads.">
+<meta name="description" content="Free party and card games to play with friends on your phones: Spade & Speak, President & Peasant, Grand Tour Tycoon, Ludo, Dominoes, Liar's Dice, Four in a Row, Checkers, Dots and Boxes, Mancala, Imposter, Closest Guess, Code Breaker and Memory Match. No accounts, no downloads.">
 <meta property="og:title" content="Game Night">
 <meta property="og:description" content="Pick a game and play with friends on your phones. No accounts, no downloads.">
 <meta property="og:type" content="website">
@@ -71,6 +71,35 @@ header p { margin: 6px 0 0; color: var(--muted); }
 .dots { --c1: #5B4A86; --c2: #2A2140; }
 .mancala { --c1: #9A6236; --c2: #4A2A13; }
 .imposter { --c1: #C23A5B; --c2: #3B1530; }
+.closest { --c1: #D9780F; --c2: #12244A; }
+.codebreaker { --c1: #1E8A55; --c2: #1A1D24; }
+.memory { --c1: #D9487A; --c2: #3A2266; }
+
+/* the wheel for when nobody can decide */
+.spin-open { display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; margin: 0 0 16px; padding: 14px 16px; border-radius: 18px; border: 2px dashed rgba(242,179,61,.6); background: rgba(242,179,61,.08); color: var(--ink); font: inherit; font-weight: 800; font-size: 1.05rem; cursor: pointer; }
+.spin-open svg { width: 28px; height: 28px; flex: none; }
+.spin-open:hover { background: rgba(242,179,61,.14); }
+.spin-open:focus-visible, .wheel-box button:focus-visible, .wheel-box select:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
+.wheel-modal { position: fixed; inset: 0; z-index: 10; background: rgba(8,6,16,.82); display: grid; place-items: center; padding: max(14px, env(safe-area-inset-top)) max(14px, env(safe-area-inset-right)) max(14px, env(safe-area-inset-bottom)) max(14px, env(safe-area-inset-left)); }
+.wheel-modal[hidden] { display: none; }
+.wheel-box { width: min(100%, 440px); max-height: 100%; overflow-y: auto; background: var(--bg-2); border: 1px solid var(--line); border-radius: 22px; padding: 18px; display: flex; flex-direction: column; gap: 12px; align-items: center; text-align: center; box-shadow: 0 20px 50px rgba(0,0,0,.6); }
+.wheel-box h2 { margin: 0; font-size: 1.4rem; }
+.wheel-top { display: flex; align-items: center; justify-content: space-between; width: 100%; gap: 10px; }
+.wheel-top select { font: inherit; font-size: 15px; background: var(--bg); color: var(--ink); border: 1px solid var(--line); border-radius: 10px; padding: 7px 10px; }
+.wheel-wrap { position: relative; width: min(100%, 330px); aspect-ratio: 1; }
+.wheel-wrap svg.wheel { width: 100%; height: 100%; transition: transform 4.2s cubic-bezier(.12,.75,.12,1); will-change: transform; }
+.wheel-wrap .pointer { position: absolute; top: -6px; left: 50%; width: 30px; height: 34px; margin-left: -15px; z-index: 2; filter: drop-shadow(0 2px 3px rgba(0,0,0,.6)); }
+.wheel-wrap .hub { position: absolute; inset: 41%; border-radius: 50%; background: var(--bg); border: 4px solid var(--gold); display: grid; place-items: center; font-weight: 900; font-size: .8rem; color: var(--gold); }
+.wheel-result { min-height: 3.2em; font-size: 1.05rem; }
+.wheel-result b { display: block; font-size: 1.6rem; color: var(--gold); line-height: 1.2; }
+.wheel-actions { display: flex; gap: 8px; flex-wrap: wrap; width: 100%; }
+.wheel-actions > * { flex: 1; min-width: 100px; padding: 12px 10px; border-radius: 12px; border: 1px solid var(--line); background: rgba(255,255,255,.06); color: var(--ink); font: inherit; font-weight: 800; cursor: pointer; text-decoration: none; text-align: center; }
+.wheel-actions .go-play { background: var(--gold); color: #241800; border-color: var(--gold); }
+.wheel-actions [disabled] { opacity: .4; cursor: not-allowed; }
+.wheel-skipped { font-size: .85rem; color: var(--muted); margin: 0; }
+.wheel-skipped button { background: none; border: 0; color: var(--ink); text-decoration: underline; font: inherit; cursor: pointer; padding: 0; }
+.wheel-close { background: none; border: 1px solid var(--line); color: var(--ink); border-radius: 999px; padding: 6px 14px; font: inherit; font-weight: 700; cursor: pointer; }
+@media (prefers-reduced-motion: reduce) { .wheel-wrap svg.wheel { transition-duration: .01s; } }
 /* the game an old link came from */
 .game.came { outline: 3px solid var(--gold); outline-offset: 3px; }
 .came-note { display: none; margin: 0 0 14px; padding: 12px 14px; border-radius: 14px; background: var(--bg-2); border: 1px solid var(--line); font-size: .95rem; }
@@ -94,8 +123,32 @@ footer { margin-top: 28px; text-align: center; color: var(--muted); font-size: .
 
   <p class="came-note" id="cameNote" role="status"></p>
 
+  <button class="spin-open" id="spinOpen" type="button"><svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="17" fill="#F2B33D"/><path d="M20 20L20 3A17 17 0 0 1 34.7 11.5z" fill="#C23A5B"/><path d="M20 20L34.7 28.5A17 17 0 0 1 20 37z" fill="#2D5BD8"/><path d="M20 20L5.3 28.5A17 17 0 0 1 5.3 11.5z" fill="#1E8A55"/><circle cx="20" cy="20" r="4" fill="#14121F"/></svg>Can't decide? Spin the wheel</button>
+
+  <div class="wheel-modal" id="wheelModal" hidden>
+    <div class="wheel-box" role="dialog" aria-modal="true" aria-labelledby="wheelTitle">
+      <div class="wheel-top">
+        <h2 id="wheelTitle">Spin for a game</h2>
+        <button class="wheel-close" id="wheelClose" type="button">Close</button>
+      </div>
+      <label class="wheel-skipped" for="wheelPlayers">How many of you? <select id="wheelPlayers">
+        <option value="0">Any number</option><option value="1">Just me</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="8">7–8</option><option value="10">9 or more</option>
+      </select></label>
+      <div class="wheel-wrap">
+        <svg class="pointer" viewBox="0 0 30 34" aria-hidden="true"><path d="M15 34L2 6a14 14 0 0 1 26 0z" fill="#F4F2FA"/><circle cx="15" cy="11" r="5" fill="#14121F"/></svg>
+        <svg class="wheel" id="wheel" viewBox="-110 -110 220 220" aria-hidden="true"></svg>
+        <div class="hub" aria-hidden="true">SPIN</div>
+      </div>
+      <p class="wheel-result" id="wheelResult" aria-live="polite">Tap Spin and let the wheel choose.</p>
+      <div class="wheel-actions">
+        <button type="button" id="wheelSpin" class="go-play">Spin</button>
+      </div>
+      <p class="wheel-skipped" id="wheelSkipped"></p>
+    </div>
+  </div>
+
   <nav class="games" aria-label="Games">
-    <a class="game spade" data-game="spade" href="/spade-and-speak/">
+    <a class="game spade" data-game="spade" data-min="4" data-max="12" data-short="Spade &amp; Speak" href="/spade-and-speak/">
       <span class="emblem"><svg viewBox="0 0 40 40" aria-hidden="true"><path fill="#fff" d="M20 4C14 12 6 16 6 23a7 7 0 0 0 12 5l-2 8h8l-2-8a7 7 0 0 0 12-5c0-7-8-11-14-19z"/></svg></span>
       <div>
         <h2>Spade &amp; Speak</h2>
@@ -105,7 +158,7 @@ footer { margin-top: 28px; text-align: center; color: var(--muted); font-size: .
       <span class="go" aria-hidden="true">›</span>
     </a>
 
-    <a class="game president" data-game="president" href="/president-and-peasant/">
+    <a class="game president" data-game="president" data-min="2" data-max="6" data-short="President" href="/president-and-peasant/">
       <span class="emblem"><svg viewBox="0 0 40 40" aria-hidden="true"><path fill="#E8C468" d="M6 30l3-17 7 8 4-11 4 11 7-8 3 17z"/><rect x="6" y="31" width="28" height="4" rx="1.5" fill="#E8C468"/></svg></span>
       <div>
         <h2>President &amp; Peasant</h2>
@@ -115,7 +168,7 @@ footer { margin-top: 28px; text-align: center; color: var(--muted); font-size: .
       <span class="go" aria-hidden="true">›</span>
     </a>
 
-    <a class="game tycoon" data-game="tycoon" href="/grand-tour-tycoon/">
+    <a class="game tycoon" data-game="tycoon" data-min="2" data-max="8" data-short="Tycoon" href="/grand-tour-tycoon/">
       <span class="emblem"><svg viewBox="0 0 40 40" aria-hidden="true"><rect x="7" y="17" width="9" height="16" rx="1" fill="#fff"/><rect x="18" y="9" width="15" height="24" rx="1" fill="#fff"/><g fill="#2D50B5"><rect x="21" y="13" width="3" height="3"/><rect x="27" y="13" width="3" height="3"/><rect x="21" y="19" width="3" height="3"/><rect x="27" y="19" width="3" height="3"/><rect x="10" y="21" width="3" height="3"/><rect x="10" y="27" width="3" height="3"/></g></svg></span>
       <div>
         <h2>Grand Tour Tycoon</h2>
@@ -124,7 +177,7 @@ footer { margin-top: 28px; text-align: center; color: var(--muted); font-size: .
       </div>
       <span class="go" aria-hidden="true">›</span>
     </a>
-    <a class="game ludo" data-game="ludo" href="/ludo/">
+    <a class="game ludo" data-game="ludo" data-min="2" data-max="4" data-short="Ludo" href="/ludo/">
       <span class="emblem"><svg viewBox="0 0 40 40" aria-hidden="true"><rect x="5" y="5" width="14" height="14" rx="3" fill="#E5484D" stroke="#fff" stroke-width="2"/><rect x="21" y="5" width="14" height="14" rx="3" fill="#2FA46B" stroke="#fff" stroke-width="2"/><rect x="5" y="21" width="14" height="14" rx="3" fill="#3C7BF0" stroke="#fff" stroke-width="2"/><rect x="21" y="21" width="14" height="14" rx="3" fill="#F2B705" stroke="#fff" stroke-width="2"/></svg></span>
       <div>
         <h2>Ludo</h2>
@@ -133,7 +186,7 @@ footer { margin-top: 28px; text-align: center; color: var(--muted); font-size: .
       </div>
       <span class="go" aria-hidden="true">›</span>
     </a>
-    <a class="game dominoes" data-game="dominoes" href="/dominoes/">
+    <a class="game dominoes" data-game="dominoes" data-min="2" data-max="4" data-short="Dominoes" href="/dominoes/">
       <span class="emblem"><svg viewBox="0 0 40 40" aria-hidden="true"><rect x="12" y="3" width="16" height="34" rx="3" fill="#FBF7EE"/><path d="M13 20h14" stroke="#B9A98F" stroke-width="1.5"/><circle cx="20" cy="11.5" r="2.2" fill="#1E1712"/><circle cx="16" cy="25" r="2.2" fill="#1E1712"/><circle cx="24" cy="32" r="2.2" fill="#1E1712"/></svg></span>
       <div>
         <h2>Dominoes</h2>
@@ -142,7 +195,7 @@ footer { margin-top: 28px; text-align: center; color: var(--muted); font-size: .
       </div>
       <span class="go" aria-hidden="true">›</span>
     </a>
-    <a class="game liars" data-game="liars" href="/liars-dice/">
+    <a class="game liars" data-game="liars" data-min="2" data-max="6" data-short="Liar's Dice" href="/liars-dice/">
       <span class="emblem"><svg viewBox="0 0 40 40" aria-hidden="true"><rect x="6" y="6" width="28" height="28" rx="7" fill="#FFFDF7"/><circle cx="14" cy="14" r="3" fill="#FF5A5F"/><circle cx="20" cy="20" r="3" fill="#1B1B22"/><circle cx="26" cy="26" r="3" fill="#1B1B22"/></svg></span>
       <div>
         <h2>Liar's Dice</h2>
@@ -151,7 +204,7 @@ footer { margin-top: 28px; text-align: center; color: var(--muted); font-size: .
       </div>
       <span class="go" aria-hidden="true">›</span>
     </a>
-    <a class="game four" data-game="four" href="/four-in-a-row/">
+    <a class="game four" data-game="four" data-min="2" data-max="2" data-short="Four in a Row" href="/four-in-a-row/">
       <span class="emblem"><svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="13" cy="13" r="6" fill="#F2484F"/><circle cx="27" cy="13" r="6" fill="#F7C531"/><circle cx="13" cy="27" r="6" fill="#F7C531"/><circle cx="27" cy="27" r="6" fill="#F2484F"/></svg></span>
       <div>
         <h2>Four in a Row</h2>
@@ -160,7 +213,7 @@ footer { margin-top: 28px; text-align: center; color: var(--muted); font-size: .
       </div>
       <span class="go" aria-hidden="true">›</span>
     </a>
-    <a class="game checkers" data-game="checkers" href="/checkers/">
+    <a class="game checkers" data-game="checkers" data-min="2" data-max="2" data-short="Checkers" href="/checkers/">
       <span class="emblem"><svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="15" cy="15" r="8" fill="#D9423A" stroke="#fff" stroke-width="1.5"/><circle cx="25" cy="25" r="8" fill="#2C2A31" stroke="#fff" stroke-width="1.5"/></svg></span>
       <div>
         <h2>Checkers</h2>
@@ -169,7 +222,7 @@ footer { margin-top: 28px; text-align: center; color: var(--muted); font-size: .
       </div>
       <span class="go" aria-hidden="true">›</span>
     </a>
-    <a class="game dots" data-game="dots" href="/dots-and-boxes/">
+    <a class="game dots" data-game="dots" data-min="2" data-max="4" data-short="Dots &amp; Boxes" href="/dots-and-boxes/">
       <span class="emblem"><svg viewBox="0 0 40 40" aria-hidden="true"><rect x="8" y="8" width="12" height="12" fill="#F2545B" opacity=".4"/><path d="M8 8h12v12H8z" fill="none" stroke="#F2545B" stroke-width="2.5" stroke-linecap="round"/><path d="M20 8h12M32 8v12" stroke="#2FA9E0" stroke-width="2.5" stroke-linecap="round"/><g fill="#fff"><circle cx="8" cy="8" r="2.2"/><circle cx="20" cy="8" r="2.2"/><circle cx="32" cy="8" r="2.2"/><circle cx="8" cy="20" r="2.2"/><circle cx="20" cy="20" r="2.2"/><circle cx="32" cy="20" r="2.2"/><circle cx="8" cy="32" r="2.2"/><circle cx="20" cy="32" r="2.2"/><circle cx="32" cy="32" r="2.2"/></g></svg></span>
       <div>
         <h2>Dots and Boxes</h2>
@@ -178,7 +231,7 @@ footer { margin-top: 28px; text-align: center; color: var(--muted); font-size: .
       </div>
       <span class="go" aria-hidden="true">›</span>
     </a>
-    <a class="game mancala" data-game="mancala" href="/mancala/">
+    <a class="game mancala" data-game="mancala" data-min="2" data-max="2" data-short="Mancala" href="/mancala/">
       <span class="emblem"><svg viewBox="0 0 40 40" aria-hidden="true"><rect x="3" y="11" width="34" height="18" rx="9" fill="#6B3F1E"/><circle cx="13" cy="20" r="5" fill="#2E1A0B"/><circle cx="27" cy="20" r="5" fill="#2E1A0B"/><circle cx="12" cy="19" r="1.8" fill="#E8C547"/><circle cx="14.5" cy="21" r="1.8" fill="#7BC96F"/><circle cx="27" cy="20" r="1.8" fill="#E8794C"/></svg></span>
       <div>
         <h2>Mancala</h2>
@@ -187,12 +240,39 @@ footer { margin-top: 28px; text-align: center; color: var(--muted); font-size: .
       </div>
       <span class="go" aria-hidden="true">›</span>
     </a>
-    <a class="game imposter" data-game="imposter" href="/imposter/">
+    <a class="game imposter" data-game="imposter" data-min="3" data-max="10" data-short="Imposter" href="/imposter/">
       <span class="emblem"><svg viewBox="0 0 64 64" aria-hidden="true"><path d="M6 20c8-6 18-8 26-8s18 2 26 8c0 16-6 30-26 34C12 50 6 36 6 20z" fill="#FF4D6D"/><path d="M14 27c3-4 9-5 13-1-3 4-9 5-13 1zM37 26c4-4 10-3 13 1-4 4-10 3-13-1z" fill="#17122B"/><path d="M25 41c4 3 10 3 14 0" stroke="#17122B" stroke-width="3" fill="none" stroke-linecap="round"/></svg></span>
       <div>
         <h2>Imposter</h2>
         <p>Everyone knows the secret word except one. Say one word each and vote out the faker.</p>
         <span class="chips"><span>3–10 players</span><span>Online rooms</span><span>Pass one phone</span></span>
+      </div>
+      <span class="go" aria-hidden="true">›</span>
+    </a>
+    <a class="game closest" data-game="closest" data-min="2" data-max="8" data-short="Closest Guess" href="/closest-guess/">
+      <span class="emblem"><svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="28" fill="#FF9F1C"/><circle cx="32" cy="32" r="20" fill="#0D1A33"/><circle cx="32" cy="32" r="12" fill="#5EE0B5"/><circle cx="32" cy="32" r="5" fill="#0D1A33"/></svg></span>
+      <div>
+        <h2>Closest Guess</h2>
+        <p>How tall is the Burj Khalifa? Nobody knows exactly, so the closest guess wins.</p>
+        <span class="chips"><span>2–8 players</span><span>Online rooms</span><span>vs computer</span></span>
+      </div>
+      <span class="go" aria-hidden="true">›</span>
+    </a>
+    <a class="game codebreaker" data-game="codebreaker" data-min="1" data-max="8" data-short="Code Breaker" href="/code-breaker/">
+      <span class="emblem"><svg viewBox="0 0 64 64" aria-hidden="true"><rect x="8" y="26" width="48" height="32" rx="8" fill="#3DDC84"/><path d="M20 26v-6a12 12 0 0 1 24 0v6" stroke="#3DDC84" stroke-width="6" fill="none"/><circle cx="20" cy="42" r="4.5" fill="#FF5A5F"/><circle cx="32" cy="42" r="4.5" fill="#FFD23F"/><circle cx="44" cy="42" r="4.5" fill="#3A86FF"/></svg></span>
+      <div>
+        <h2>Code Breaker</h2>
+        <p>Crack the secret colour code from the clues. A new daily code, or race your friends.</p>
+        <span class="chips"><span>1–8 players</span><span>Daily code</span><span>vs computer</span></span>
+      </div>
+      <span class="go" aria-hidden="true">›</span>
+    </a>
+    <a class="game memory" data-game="memory" data-min="1" data-max="6" data-short="Memory Match" href="/memory-match/">
+      <span class="emblem"><svg viewBox="0 0 64 64" aria-hidden="true"><rect x="6" y="12" width="28" height="36" rx="5" fill="#FF6B9A" transform="rotate(-10 20 30)"/><rect x="28" y="14" width="28" height="36" rx="5" fill="#FFFDF8" transform="rotate(8 42 32)"/><circle cx="42" cy="32" r="6" fill="#FFC93C" transform="rotate(8 42 32)"/></svg></span>
+      <div>
+        <h2>Memory Match</h2>
+        <p>Flip two cards, find the pairs, remember where everything is.</p>
+        <span class="chips"><span>1–6 players</span><span>Online rooms</span><span>vs computer</span></span>
       </div>
       <span class="go" aria-hidden="true">›</span>
     </a>
@@ -231,6 +311,88 @@ footer { margin-top: 28px; text-align: center; color: var(--muted); font-size: .
   ['pointerdown', 'mouseover', 'focusin', 'touchstart'].forEach(function (t) {
     document.addEventListener(t, warm, { passive: true });
   });
+
+  /* ---- the wheel: built from the game cards on this page, so new games join it on their own ---- */
+  var $ = function (id) { return document.getElementById(id); };
+  var cards = Array.prototype.slice.call(document.querySelectorAll('.games .game'));
+  var games = cards.map(function (c) {
+    return { id: c.dataset.game, name: c.querySelector('h2').textContent, short: c.dataset.short || c.querySelector('h2').textContent,
+      href: c.getAttribute('href'), min: +c.dataset.min || 1, max: +c.dataset.max || 99, color: getComputedStyle(c).getPropertyValue('--c1').trim() || '#555' };
+  });
+  var skipped = [], turn = 0, spinning = false, onWheel = [], picked = null;
+  var NS = 'http://www.w3.org/2000/svg';
+  function fits(g) { var n = +$('wheelPlayers').value; return !n || (g.min <= n && n <= g.max); }
+  function build() {
+    onWheel = games.filter(function (g) { return fits(g) && skipped.indexOf(g.id) < 0; });
+    var w = $('wheel');
+    w.innerHTML = '';
+    var n = onWheel.length;
+    if (!n) { $('wheelResult').innerHTML = 'No games left on the wheel.'; actions('empty'); return; }
+    var step = 360 / n;
+    onWheel.forEach(function (g, i) {
+      var a0 = (-90 + i * step) * Math.PI / 180, a1 = (-90 + (i + 1) * step) * Math.PI / 180;
+      var p = document.createElementNS(NS, 'path');
+      if (n === 1) { p = document.createElementNS(NS, 'circle'); p.setAttribute('r', 100); }
+      else p.setAttribute('d', 'M0 0L' + (100 * Math.cos(a0)).toFixed(2) + ' ' + (100 * Math.sin(a0)).toFixed(2) + 'A100 100 0 ' + (step > 180 ? 1 : 0) + ' 1 ' + (100 * Math.cos(a1)).toFixed(2) + ' ' + (100 * Math.sin(a1)).toFixed(2) + 'Z');
+      p.setAttribute('fill', g.color);
+      p.setAttribute('stroke', '#14121F'); p.setAttribute('stroke-width', '1.5');
+      w.appendChild(p);
+      var mid = -90 + (i + 0.5) * step;
+      var t = document.createElementNS(NS, 'text');
+      var flipText = mid > 90 && mid < 270; /* keep words on the left half the right way up */
+      t.setAttribute('transform', flipText ? 'rotate(' + (mid + 180).toFixed(2) + ') translate(-94 0)' : 'rotate(' + mid.toFixed(2) + ') translate(94 0)');
+      t.setAttribute('text-anchor', flipText ? 'start' : 'end'); t.setAttribute('dominant-baseline', 'middle');
+      t.setAttribute('fill', '#fff'); t.setAttribute('font-weight', '800');
+      t.setAttribute('font-size', n > 12 ? 8.5 : n > 8 ? 10 : 12);
+      t.textContent = g.short;
+      w.appendChild(t);
+    });
+    var rim = document.createElementNS(NS, 'circle');
+    rim.setAttribute('r', 101); rim.setAttribute('fill', 'none'); rim.setAttribute('stroke', '#F2B33D'); rim.setAttribute('stroke-width', '4');
+    w.appendChild(rim);
+    $('wheelSkipped').innerHTML = skipped.length ? 'Skipped: ' + skipped.map(function (id) { return games.filter(function (g) { return g.id === id; })[0].short; }).join(', ') + ' · <button type="button" id="wheelReset">put them back</button>' : '';
+  }
+  function actions(kind) {
+    var box = document.querySelector('.wheel-actions');
+    if (kind === 'picked') box.innerHTML = '<a class="go-play" id="wheelPlay" href="' + picked.href + '">Play ' + picked.short.replace(/&/g, '&amp;') + '</a><button type="button" id="wheelSkip">Skip</button><button type="button" id="wheelAgain">Spin again</button>';
+    else if (kind === 'empty') box.innerHTML = '<button type="button" id="wheelResetAll" class="go-play">Put every game back</button>';
+    else box.innerHTML = '<button type="button" id="wheelSpin" class="go-play"' + (spinning ? ' disabled' : '') + '>Spin</button>';
+  }
+  function spin() {
+    if (spinning || !onWheel.length) return;
+    spinning = true; actions('spin');
+    var n = onWheel.length, step = 360 / n;
+    var i = Math.floor(Math.random() * n);
+    var jitter = (Math.random() - 0.5) * step * 0.7;
+    var base = turn - (turn % 360);
+    turn = base + 360 * (5 + Math.floor(Math.random() * 2)) + (360 - (i + 0.5) * step) + jitter;
+    $('wheelResult').textContent = 'Spinning…';
+    $('wheel').style.transform = 'rotate(' + turn + 'deg)';
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    setTimeout(function () {
+      spinning = false; picked = onWheel[i];
+      $('wheelResult').innerHTML = 'The wheel says<b>' + picked.name.replace(/&/g, '&amp;') + '</b>';
+      actions('picked');
+      var p = $('wheelPlay'); if (p) p.focus();
+    }, reduce ? 50 : 4300);
+  }
+  function open() {
+    $('wheelModal').hidden = false;
+    build(); actions('spin');
+    $('wheelResult').textContent = 'Tap Spin and let the wheel choose.';
+    $('wheelSpin').focus();
+  }
+  function close() { if (!spinning) $('wheelModal').hidden = true; }
+  $('spinOpen').addEventListener('click', open);
+  $('wheelClose').addEventListener('click', close);
+  $('wheelModal').addEventListener('click', function (e) {
+    if (e.target === $('wheelModal')) close();
+    else if (e.target.closest('#wheelSpin') || e.target.closest('#wheelAgain')) spin();
+    else if (e.target.closest('#wheelSkip')) { skipped.push(picked.id); picked = null; build(); if (onWheel.length) spin(); }
+    else if (e.target.closest('#wheelReset') || e.target.closest('#wheelResetAll')) { skipped = []; build(); actions('spin'); $('wheelResult').textContent = 'Tap Spin and let the wheel choose.'; }
+  });
+  $('wheelPlayers').addEventListener('change', function () { if (spinning) return; build(); if (onWheel.length) { actions('spin'); $('wheelResult').textContent = onWheel.length + ' games fit. Tap Spin.'; } });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !$('wheelModal').hidden) close(); });
 })();
 </script>
 </body>
