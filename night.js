@@ -17,7 +17,9 @@
     imposter: { name: 'Imposter', path: '/imposter/' },
     closest: { name: 'Closest Guess', path: '/closest-guess/' },
     codebreaker: { name: 'Code Breaker', path: '/code-breaker/' },
-    memory: { name: 'Memory Match', path: '/memory-match/' }
+    memory: { name: 'Memory Match', path: '/memory-match/' },
+    trivia: { name: 'Trivia', path: '/trivia/' },
+    letters: { name: 'Letter Game', path: '/letter-game/' }
   };
   var RELAYS = [
     ['wss://public.cloud.shiftr.io:443', { username: 'public', password: 'public' }],
