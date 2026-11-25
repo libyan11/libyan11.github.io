@@ -20,7 +20,8 @@
     memory: { name: 'Memory Match', path: '/memory-match/' },
     trivia: { name: 'Trivia', path: '/trivia/' },
     letters: { name: 'Letter Game', path: '/letter-game/' },
-    cluecards: { name: 'Clue Cards', path: '/clue-cards/' }
+    cluecards: { name: 'Clue Cards', path: '/clue-cards/' },
+    draw: { name: 'Draw & Guess', path: '/draw-guess/' }
   };
   var RELAYS = [
     ['wss://public.cloud.shiftr.io:443', { username: 'public', password: 'public' }],
