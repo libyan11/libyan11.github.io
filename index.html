@@ -5,7 +5,7 @@
 <script>if("serviceWorker"in navigator&&location.protocol==="https:")addEventListener("load",function(){navigator.serviceWorker.register("sw.js").catch(function(){})})</script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Game Night</title>
-<meta name="description" content="Free party and card games to play with friends on your phones: Spade & Speak, President & Peasant, Grand Tour Tycoon, Ludo, Dominoes, Liar's Dice, Four in a Row, Checkers, Dots and Boxes, Mancala, Imposter, Closest Guess, Code Breaker, Memory Match, Trivia and the Letter Game. No accounts, no downloads.">
+<meta name="description" content="Free party and card games to play with friends on your phones: Spade & Speak, President & Peasant, Grand Tour Tycoon, Ludo, Dominoes, Liar's Dice, Four in a Row, Checkers, Dots and Boxes, Mancala, Imposter, Closest Guess, Code Breaker, Memory Match, Trivia, the Letter Game and Clue Cards. No accounts, no downloads.">
 <meta property="og:title" content="Game Night">
 <meta property="og:description" content="Pick a game and play with friends on your phones. No accounts, no downloads.">
 <meta property="og:type" content="website">
@@ -76,6 +76,7 @@ header p { margin: 6px 0 0; color: var(--muted); }
 .memory { --c1: #D9487A; --c2: #3A2266; }
 .trivia { --c1: #6B3FD6; --c2: #1B1240; }
 .letters { --c1: #1E7A5E; --c2: #10302A; }
+.cluecards { --c1: #C9603A; --c2: #2A1620; }
 
 /* the wheel for when nobody can decide */
 /* Game Night: a playlist of games in one room */
@@ -366,6 +367,15 @@ footer { margin-top: 28px; text-align: center; color: var(--muted); font-size: .
       </div>
       <span class="go" aria-hidden="true">›</span>
     </a>
+    <a class="game cluecards" data-game="cluecards" data-min="2" data-max="10" data-short="Clue Cards" href="/clue-cards/">
+      <span class="emblem"><svg viewBox="0 0 64 64" aria-hidden="true"><rect x="10" y="6" width="40" height="52" rx="8" fill="#FFF8EC" transform="rotate(-8 30 32)"/><text x="31" y="42" font-size="28" font-weight="900" text-anchor="middle" fill="#FF9E5E" font-family="Arial, sans-serif">?</text></svg></span>
+      <div>
+        <h2>Clue Cards</h2>
+        <p>Everyone gets a secret word and writes a clue. Guess whose word each clue is about, and score when yours is guessed.</p>
+        <span class="chips"><span>2–10 players</span><span>English or Arabic</span><span>Online rooms</span></span>
+      </div>
+      <span class="go" aria-hidden="true">›</span>
+    </a>
   </nav>
 
   <p class="extra">No internet? Any game you have opened once on this phone still works against the computer (Imposter works passing one phone), and <a href="/spade-and-speak/play/">Spade &amp; Speak on one phone</a> works offline too.</p>
@@ -485,9 +495,9 @@ footer { margin-top: 28px; text-align: center; color: var(--muted); font-size: .
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !$('wheelModal').hidden) close(); if (e.key === 'Escape' && !$('nightModal').hidden) $('nightModal').hidden = true; });
 
   /* ---- Game Night: host picks games and rounds; friends join with the code ---- */
-  var NIGHT_GAMES = ['trivia', 'letters', 'imposter', 'closest', 'liars', 'spade', 'president', 'ludo', 'dominoes', 'four', 'checkers', 'dots', 'mancala', 'codebreaker', 'memory'];
+  var NIGHT_GAMES = ['trivia', 'letters', 'cluecards', 'imposter', 'closest', 'liars', 'spade', 'president', 'ludo', 'dominoes', 'four', 'checkers', 'dots', 'mancala', 'codebreaker', 'memory'];
   var PRESETS = {
-    party: [['imposter', 2], ['trivia', 1], ['letters', 1], ['closest', 1], ['liars', 1]],
+    party: [['imposter', 2], ['trivia', 1], ['cluecards', 1], ['letters', 1], ['closest', 1]],
     brain: [['four', 2], ['codebreaker', 2], ['checkers', 1], ['mancala', 1]],
     classic: [['ludo', 1], ['dominoes', 1], ['president', 2], ['memory', 1]]
   };

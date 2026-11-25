@@ -19,7 +19,8 @@
     codebreaker: { name: 'Code Breaker', path: '/code-breaker/' },
     memory: { name: 'Memory Match', path: '/memory-match/' },
     trivia: { name: 'Trivia', path: '/trivia/' },
-    letters: { name: 'Letter Game', path: '/letter-game/' }
+    letters: { name: 'Letter Game', path: '/letter-game/' },
+    cluecards: { name: 'Clue Cards', path: '/clue-cards/' }
   };
   var RELAYS = [
     ['wss://public.cloud.shiftr.io:443', { username: 'public', password: 'public' }],
