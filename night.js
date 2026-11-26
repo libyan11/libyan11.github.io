@@ -22,7 +22,8 @@
     letters: { name: 'Letter Game', path: '/letter-game/' },
     cluecards: { name: 'Clue Cards', path: '/clue-cards/' },
     draw: { name: 'Draw & Guess', path: '/draw-guess/' },
-    eights: { name: 'Crazy Eights', path: '/crazy-eights/' }
+    eights: { name: 'Crazy Eights', path: '/crazy-eights/' },
+    mafia: { name: 'Mafia', path: '/mafia/' }
   };
   var RELAYS = [
     ['wss://public.cloud.shiftr.io:443', { username: 'public', password: 'public' }],
