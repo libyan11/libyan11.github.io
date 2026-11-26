@@ -5,7 +5,7 @@
 <script>if("serviceWorker"in navigator&&location.protocol==="https:")addEventListener("load",function(){navigator.serviceWorker.register("sw.js").catch(function(){})})</script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Game Night</title>
-<meta name="description" content="Free party and card games to play with friends on your phones: Spade & Speak, President & Peasant, Grand Tour Tycoon, Ludo, Dominoes, Liar's Dice, Four in a Row, Checkers, Dots and Boxes, Mancala, Imposter, Closest Guess, Code Breaker, Memory Match, Trivia, the Letter Game, Clue Cards and Draw & Guess. No accounts, no downloads.">
+<meta name="description" content="Free party and card games to play with friends on your phones: Spade & Speak, President & Peasant, Grand Tour Tycoon, Ludo, Dominoes, Liar's Dice, Four in a Row, Checkers, Dots and Boxes, Mancala, Imposter, Closest Guess, Code Breaker, Memory Match, Trivia, the Letter Game, Clue Cards, Draw & Guess and Crazy Eights. No accounts, no downloads.">
 <meta property="og:title" content="Game Night">
 <meta property="og:description" content="Pick a game and play with friends on your phones. No accounts, no downloads.">
 <meta property="og:type" content="website">
@@ -78,6 +78,7 @@ header p { margin: 6px 0 0; color: var(--muted); }
 .letters { --c1: #1E7A5E; --c2: #10302A; }
 .cluecards { --c1: #C9603A; --c2: #2A1620; }
 .draw { --c1: #2F80ED; --c2: #102542; }
+.eights { --c1: #1F7A5C; --c2: #0E3B2E; }
 
 /* the wheel for when nobody can decide */
 /* Game Night: a playlist of games in one room */
@@ -386,6 +387,15 @@ footer { margin-top: 28px; text-align: center; color: var(--muted); font-size: .
       </div>
       <span class="go" aria-hidden="true">›</span>
     </a>
+    <a class="game eights" data-game="eights" data-min="2" data-max="6" data-short="Crazy Eights" href="/crazy-eights/">
+      <span class="emblem"><svg viewBox="0 0 64 64" aria-hidden="true"><rect x="14" y="6" width="38" height="52" rx="6" fill="#FFFDF7"/><text x="33" y="44" font-size="32" font-weight="900" text-anchor="middle" fill="#D6303A" font-family="Arial, sans-serif">8</text></svg></span>
+      <div>
+        <h2>Crazy Eights</h2>
+        <p>Match the suit or the number, eights are wild. 2s make the next player draw, jacks skip, aces reverse.</p>
+        <span class="chips"><span>2–6 players</span><span>Online rooms</span><span>vs computer</span></span>
+      </div>
+      <span class="go" aria-hidden="true">›</span>
+    </a>
   </nav>
 
   <p class="extra">No internet? Any game you have opened once on this phone still works against the computer (Imposter works passing one phone), and <a href="/spade-and-speak/play/">Spade &amp; Speak on one phone</a> works offline too.</p>
@@ -505,11 +515,11 @@ footer { margin-top: 28px; text-align: center; color: var(--muted); font-size: .
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !$('wheelModal').hidden) close(); if (e.key === 'Escape' && !$('nightModal').hidden) $('nightModal').hidden = true; });
 
   /* ---- Game Night: host picks games and rounds; friends join with the code ---- */
-  var NIGHT_GAMES = ['draw', 'trivia', 'letters', 'cluecards', 'imposter', 'closest', 'liars', 'spade', 'president', 'ludo', 'dominoes', 'four', 'checkers', 'dots', 'mancala', 'codebreaker', 'memory'];
+  var NIGHT_GAMES = ['draw', 'eights', 'trivia', 'letters', 'cluecards', 'imposter', 'closest', 'liars', 'spade', 'president', 'ludo', 'dominoes', 'four', 'checkers', 'dots', 'mancala', 'codebreaker', 'memory'];
   var PRESETS = {
     party: [['imposter', 2], ['draw', 1], ['trivia', 1], ['cluecards', 1], ['letters', 1]],
     brain: [['four', 2], ['codebreaker', 2], ['checkers', 1], ['mancala', 1]],
-    classic: [['ludo', 1], ['dominoes', 1], ['president', 2], ['memory', 1]]
+    classic: [['eights', 1], ['ludo', 1], ['dominoes', 1], ['president', 2]]
   };
   function getLS(k) { try { var v = localStorage.getItem(k); return v ? JSON.parse(v) : null; } catch (e) { return null; } }
   function setLS(k, v) { try { if (v == null) localStorage.removeItem(k); else localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
