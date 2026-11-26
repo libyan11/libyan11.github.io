@@ -5,7 +5,7 @@
 <script>if("serviceWorker"in navigator&&location.protocol==="https:")addEventListener("load",function(){navigator.serviceWorker.register("sw.js").catch(function(){})})</script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Game Night</title>
-<meta name="description" content="Free party and card games to play with friends on your phones: Spade & Speak, President & Peasant, Grand Tour Tycoon, Ludo, Dominoes, Liar's Dice, Four in a Row, Checkers, Dots and Boxes, Mancala, Imposter, Closest Guess, Code Breaker, Memory Match, Trivia, the Letter Game, Clue Cards, Draw & Guess, Crazy Eights and Mafia. No accounts, no downloads.">
+<meta name="description" content="Free party and card games to play with friends on your phones: Spade & Speak, President & Peasant, Grand Tour Tycoon, Ludo, Dominoes, Liar's Dice, Four in a Row, Checkers, Dots and Boxes, Mancala, Imposter, Closest Guess, Code Breaker, Memory Match, Trivia, the Letter Game, Clue Cards, Draw & Guess, Crazy Eights, Mafia and Backgammon. No accounts, no downloads.">
 <meta property="og:title" content="Game Night">
 <meta property="og:description" content="Pick a game and play with friends on your phones. No accounts, no downloads.">
 <meta property="og:type" content="website">
@@ -80,6 +80,7 @@ header p { margin: 6px 0 0; color: var(--muted); }
 .draw { --c1: #2F80ED; --c2: #102542; }
 .eights { --c1: #1F7A5C; --c2: #0E3B2E; }
 .mafia { --c1: #6B2333; --c2: #14101C; }
+.backgammon { --c1: #8A5A34; --c2: #2B1A10; }
 
 /* the wheel for when nobody can decide */
 /* Game Night: a playlist of games in one room */
@@ -406,6 +407,15 @@ footer { margin-top: 28px; text-align: center; color: var(--muted); font-size: .
       </div>
       <span class="go" aria-hidden="true">›</span>
     </a>
+    <a class="game backgammon" data-game="backgammon" data-min="1" data-max="2" data-short="Backgammon" href="/backgammon/">
+      <span class="emblem"><svg viewBox="0 0 64 64" aria-hidden="true"><rect x="4" y="10" width="56" height="44" rx="6" fill="#5B3A22"/><path d="M8 14l6 18 6-18zM20 14l6 18 6-18zM34 50l6-18 6 18zM46 50l6-18 6 18z" fill="#C9A27A"/><circle cx="26" cy="44" r="5" fill="#F5EFE4"/><circle cx="40" cy="20" r="5" fill="#C0392B"/></svg></span>
+      <div>
+        <h2>Backgammon <span dir="rtl" lang="ar" style="font-weight:700;opacity:.85">· طاولة</span></h2>
+        <p>Race your checkers home, hit the blots, double the stakes. Play a friend, the computer, or two on one phone.</p>
+        <span class="chips"><span>2 players</span><span>Online rooms</span><span>vs computer</span></span>
+      </div>
+      <span class="go" aria-hidden="true">›</span>
+    </a>
   </nav>
 
   <p class="extra">No internet? Any game you have opened once on this phone still works against the computer (Imposter works passing one phone), and <a href="/spade-and-speak/play/">Spade &amp; Speak on one phone</a> works offline too.</p>
@@ -525,7 +535,7 @@ footer { margin-top: 28px; text-align: center; color: var(--muted); font-size: .
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !$('wheelModal').hidden) close(); if (e.key === 'Escape' && !$('nightModal').hidden) $('nightModal').hidden = true; });
 
   /* ---- Game Night: host picks games and rounds; friends join with the code ---- */
-  var NIGHT_GAMES = ['mafia', 'draw', 'eights', 'trivia', 'letters', 'cluecards', 'imposter', 'closest', 'liars', 'spade', 'president', 'ludo', 'dominoes', 'four', 'checkers', 'dots', 'mancala', 'codebreaker', 'memory'];
+  var NIGHT_GAMES = ['mafia', 'backgammon', 'draw', 'eights', 'trivia', 'letters', 'cluecards', 'imposter', 'closest', 'liars', 'spade', 'president', 'ludo', 'dominoes', 'four', 'checkers', 'dots', 'mancala', 'codebreaker', 'memory'];
   var PRESETS = {
     party: [['imposter', 2], ['draw', 1], ['trivia', 1], ['cluecards', 1], ['letters', 1]],
     brain: [['four', 2], ['codebreaker', 2], ['checkers', 1], ['mancala', 1]],
