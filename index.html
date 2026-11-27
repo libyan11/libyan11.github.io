@@ -5,7 +5,7 @@
 <script>if("serviceWorker"in navigator&&location.protocol==="https:")addEventListener("load",function(){navigator.serviceWorker.register("sw.js").catch(function(){})})</script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Game Night</title>
-<meta name="description" content="Free party and card games to play with friends on your phones: Spade & Speak, President & Peasant, Grand Tour Tycoon, Ludo, Dominoes, Liar's Dice, Four in a Row, Checkers, Dots and Boxes, Mancala, Imposter, Closest Guess, Code Breaker, Memory Match, Trivia, the Letter Game, Clue Cards, Draw & Guess, Crazy Eights, Mafia, Backgammon and Word Guess. No accounts, no downloads.">
+<meta name="description" content="Free party and card games to play with friends on your phones: Spade & Speak, President & Peasant, Grand Tour Tycoon, Ludo, Dominoes, Liar's Dice, Four in a Row, Checkers, Dots and Boxes, Mancala, Imposter, Closest Guess, Code Breaker, Memory Match, Trivia, the Letter Game, Clue Cards, Draw & Guess, Crazy Eights, Mafia, Backgammon, Word Guess and Fake Answers. No accounts, no downloads.">
 <meta property="og:title" content="Game Night">
 <meta property="og:description" content="Pick a game and play with friends on your phones. No accounts, no downloads.">
 <meta property="og:type" content="website">
@@ -82,6 +82,7 @@ header p { margin: 6px 0 0; color: var(--muted); }
 .mafia { --c1: #6B2333; --c2: #14101C; }
 .backgammon { --c1: #8A5A34; --c2: #2B1A10; }
 .words { --c1: #2E8C64; --c2: #121826; }
+.fake { --c1: #C2367A; --c2: #1C0F33; }
 
 /* the wheel for when nobody can decide */
 /* Game Night: a playlist of games in one room */
@@ -426,6 +427,15 @@ footer { margin-top: 28px; text-align: center; color: var(--muted); font-size: .
       </div>
       <span class="go" aria-hidden="true">›</span>
     </a>
+    <a class="game fake" data-game="fake" data-min="2" data-max="8" data-short="Fake Answers" href="/fake-answers/">
+      <span class="emblem"><svg viewBox="0 0 64 64" aria-hidden="true"><path d="M6 20c8-6 18-8 26-8s18 2 26 8c0 18-10 32-26 32S6 38 6 20z" fill="#FF5FA2"/><ellipse cx="22" cy="28" rx="7" ry="5" fill="#1C0F33"/><ellipse cx="42" cy="28" rx="7" ry="5" fill="#1C0F33"/><path d="M22 41c6 4 14 4 20 0" stroke="#1C0F33" stroke-width="4" fill="none" stroke-linecap="round"/></svg></span>
+      <div>
+        <h2>Fake Answers <span dir="rtl" lang="ar" style="font-weight:700;opacity:.85">· إجابة مزيفة</span></h2>
+        <p>A strange true fact with a word missing. Write a fake answer that fools your friends, then spot the real one.</p>
+        <span class="chips"><span>2–8 players</span><span>Online rooms</span><span>English &amp; Arabic</span></span>
+      </div>
+      <span class="go" aria-hidden="true">›</span>
+    </a>
   </nav>
 
   <p class="extra">No internet? Any game you have opened once on this phone still works against the computer (Imposter works passing one phone), and <a href="/spade-and-speak/play/">Spade &amp; Speak on one phone</a> works offline too.</p>
@@ -545,7 +555,7 @@ footer { margin-top: 28px; text-align: center; color: var(--muted); font-size: .
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !$('wheelModal').hidden) close(); if (e.key === 'Escape' && !$('nightModal').hidden) $('nightModal').hidden = true; });
 
   /* ---- Game Night: host picks games and rounds; friends join with the code ---- */
-  var NIGHT_GAMES = ['mafia', 'backgammon', 'words', 'draw', 'eights', 'trivia', 'letters', 'cluecards', 'imposter', 'closest', 'liars', 'spade', 'president', 'ludo', 'dominoes', 'four', 'checkers', 'dots', 'mancala', 'codebreaker', 'memory'];
+  var NIGHT_GAMES = ['fake', 'mafia', 'backgammon', 'words', 'draw', 'eights', 'trivia', 'letters', 'cluecards', 'imposter', 'closest', 'liars', 'spade', 'president', 'ludo', 'dominoes', 'four', 'checkers', 'dots', 'mancala', 'codebreaker', 'memory'];
   var PRESETS = {
     party: [['imposter', 2], ['draw', 1], ['trivia', 1], ['cluecards', 1], ['letters', 1]],
     brain: [['four', 2], ['codebreaker', 2], ['checkers', 1], ['mancala', 1]],

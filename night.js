@@ -25,7 +25,8 @@
     eights: { name: 'Crazy Eights', path: '/crazy-eights/' },
     mafia: { name: 'Mafia', path: '/mafia/' },
     backgammon: { name: 'Backgammon', path: '/backgammon/' },
-    words: { name: 'Word Guess', path: '/word-guess/' }
+    words: { name: 'Word Guess', path: '/word-guess/' },
+    fake: { name: 'Fake Answers', path: '/fake-answers/' }
   };
   var RELAYS = [
     ['wss://public.cloud.shiftr.io:443', { username: 'public', password: 'public' }],
