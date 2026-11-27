@@ -5,7 +5,7 @@
 <script>if("serviceWorker"in navigator&&location.protocol==="https:")addEventListener("load",function(){navigator.serviceWorker.register("sw.js").catch(function(){})})</script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Game Night</title>
-<meta name="description" content="Free party and card games to play with friends on your phones: Spade & Speak, President & Peasant, Grand Tour Tycoon, Ludo, Dominoes, Liar's Dice, Four in a Row, Checkers, Dots and Boxes, Mancala, Imposter, Closest Guess, Code Breaker, Memory Match, Trivia, the Letter Game, Clue Cards, Draw & Guess, Crazy Eights, Mafia, Backgammon, Word Guess, Fake Answers and Word Bomb. No accounts, no downloads.">
+<meta name="description" content="Free party and card games to play with friends on your phones: Spade & Speak, President & Peasant, Grand Tour Tycoon, Ludo, Dominoes, Liar's Dice, Four in a Row, Checkers, Dots and Boxes, Mancala, Imposter, Closest Guess, Code Breaker, Memory Match, Trivia, the Letter Game, Clue Cards, Draw & Guess, Crazy Eights, Mafia, Backgammon, Word Guess, Fake Answers, Word Bomb and Spy Teams. No accounts, no downloads.">
 <meta property="og:title" content="Game Night">
 <meta property="og:description" content="Pick a game and play with friends on your phones. No accounts, no downloads.">
 <meta property="og:type" content="website">
@@ -84,6 +84,7 @@ header p { margin: 6px 0 0; color: var(--muted); }
 .words { --c1: #2E8C64; --c2: #121826; }
 .fake { --c1: #C2367A; --c2: #1C0F33; }
 .bomb { --c1: #D9771E; --c2: #1A1410; }
+.spyteams { --c1: #B8323A; --c2: #1F3F7A; }
 
 /* the wheel for when nobody can decide */
 /* Game Night: a playlist of games in one room */
@@ -446,6 +447,15 @@ footer { margin-top: 28px; text-align: center; color: var(--muted); font-size: .
       </div>
       <span class="go" aria-hidden="true">›</span>
     </a>
+    <a class="game spyteams" data-game="spyteams" data-min="4" data-max="16" data-short="Spy Teams" href="/spy-teams/">
+      <span class="emblem"><svg viewBox="0 0 64 64" aria-hidden="true"><rect x="6" y="6" width="24" height="24" rx="5" fill="#E5484D"/><rect x="34" y="6" width="24" height="24" rx="5" fill="#EFE6D2"/><rect x="6" y="34" width="24" height="24" rx="5" fill="#EFE6D2"/><rect x="34" y="34" width="24" height="24" rx="5" fill="#3E8BFF"/><circle cx="46" cy="18" r="5" fill="#23201A"/></svg></span>
+      <div>
+        <h2>Spy Teams <span dir="rtl" lang="ar" style="font-weight:700;opacity:.85">· فرق الجواسيس</span></h2>
+        <p>Two teams, 25 words. Your spymaster gives one-word clues; find all your words first and dodge the trap.</p>
+        <span class="chips"><span>4–16 players</span><span>Teams</span><span>English &amp; Arabic</span></span>
+      </div>
+      <span class="go" aria-hidden="true">›</span>
+    </a>
   </nav>
 
   <p class="extra">No internet? Any game you have opened once on this phone still works against the computer (Imposter works passing one phone), and <a href="/spade-and-speak/play/">Spade &amp; Speak on one phone</a> works offline too.</p>
@@ -565,7 +575,7 @@ footer { margin-top: 28px; text-align: center; color: var(--muted); font-size: .
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !$('wheelModal').hidden) close(); if (e.key === 'Escape' && !$('nightModal').hidden) $('nightModal').hidden = true; });
 
   /* ---- Game Night: host picks games and rounds; friends join with the code ---- */
-  var NIGHT_GAMES = ['bomb', 'fake', 'mafia', 'backgammon', 'words', 'draw', 'eights', 'trivia', 'letters', 'cluecards', 'imposter', 'closest', 'liars', 'spade', 'president', 'ludo', 'dominoes', 'four', 'checkers', 'dots', 'mancala', 'codebreaker', 'memory'];
+  var NIGHT_GAMES = ['spyteams', 'bomb', 'fake', 'mafia', 'backgammon', 'words', 'draw', 'eights', 'trivia', 'letters', 'cluecards', 'imposter', 'closest', 'liars', 'spade', 'president', 'ludo', 'dominoes', 'four', 'checkers', 'dots', 'mancala', 'codebreaker', 'memory'];
   var PRESETS = {
     party: [['imposter', 2], ['draw', 1], ['trivia', 1], ['cluecards', 1], ['letters', 1]],
     brain: [['four', 2], ['codebreaker', 2], ['checkers', 1], ['mancala', 1]],

@@ -27,7 +27,8 @@
     backgammon: { name: 'Backgammon', path: '/backgammon/' },
     words: { name: 'Word Guess', path: '/word-guess/' },
     fake: { name: 'Fake Answers', path: '/fake-answers/' },
-    bomb: { name: 'Word Bomb', path: '/word-bomb/' }
+    bomb: { name: 'Word Bomb', path: '/word-bomb/' },
+    spyteams: { name: 'Spy Teams', path: '/spy-teams/' }
   };
   var RELAYS = [
     ['wss://public.cloud.shiftr.io:443', { username: 'public', password: 'public' }],
