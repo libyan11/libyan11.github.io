@@ -5,7 +5,7 @@
 <script>if("serviceWorker"in navigator&&location.protocol==="https:")addEventListener("load",function(){navigator.serviceWorker.register("sw.js").catch(function(){})})</script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Game Night</title>
-<meta name="description" content="Free party and card games to play with friends on your phones: Spade & Speak, President & Peasant, Grand Tour Tycoon, Ludo, Dominoes, Liar's Dice, Four in a Row, Checkers, Dots and Boxes, Mancala, Imposter, Closest Guess, Code Breaker, Memory Match, Trivia, the Letter Game, Clue Cards, Draw & Guess, Crazy Eights, Mafia, Backgammon, Word Guess and Fake Answers. No accounts, no downloads.">
+<meta name="description" content="Free party and card games to play with friends on your phones: Spade & Speak, President & Peasant, Grand Tour Tycoon, Ludo, Dominoes, Liar's Dice, Four in a Row, Checkers, Dots and Boxes, Mancala, Imposter, Closest Guess, Code Breaker, Memory Match, Trivia, the Letter Game, Clue Cards, Draw & Guess, Crazy Eights, Mafia, Backgammon, Word Guess, Fake Answers and Word Bomb. No accounts, no downloads.">
 <meta property="og:title" content="Game Night">
 <meta property="og:description" content="Pick a game and play with friends on your phones. No accounts, no downloads.">
 <meta property="og:type" content="website">
@@ -83,6 +83,7 @@ header p { margin: 6px 0 0; color: var(--muted); }
 .backgammon { --c1: #8A5A34; --c2: #2B1A10; }
 .words { --c1: #2E8C64; --c2: #121826; }
 .fake { --c1: #C2367A; --c2: #1C0F33; }
+.bomb { --c1: #D9771E; --c2: #1A1410; }
 
 /* the wheel for when nobody can decide */
 /* Game Night: a playlist of games in one room */
@@ -436,6 +437,15 @@ footer { margin-top: 28px; text-align: center; color: var(--muted); font-size: .
       </div>
       <span class="go" aria-hidden="true">›</span>
     </a>
+    <a class="game bomb" data-game="bomb" data-min="2" data-max="10" data-short="Word Bomb" href="/word-bomb/">
+      <span class="emblem"><svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="54" cy="70" r="40" fill="#2A2F45"/><circle cx="40" cy="56" r="10" fill="#4A5274"/><path d="M80 24c6-8 10-10 12-10" stroke="#C9A27A" stroke-width="5" fill="none" stroke-linecap="round"/><circle cx="92" cy="14" r="8" fill="#FFB020"/></svg></span>
+      <div>
+        <h2>Word Bomb <span dir="rtl" lang="ar" style="font-weight:700;opacity:.85">· القنبلة</span></h2>
+        <p>Pass the ticking bomb. Name a fruit, a country, a job… before it blows up in your hands. Last one standing wins.</p>
+        <span class="chips"><span>2–10 players</span><span>Online rooms</span><span>English &amp; Arabic</span></span>
+      </div>
+      <span class="go" aria-hidden="true">›</span>
+    </a>
   </nav>
 
   <p class="extra">No internet? Any game you have opened once on this phone still works against the computer (Imposter works passing one phone), and <a href="/spade-and-speak/play/">Spade &amp; Speak on one phone</a> works offline too.</p>
@@ -555,7 +565,7 @@ footer { margin-top: 28px; text-align: center; color: var(--muted); font-size: .
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !$('wheelModal').hidden) close(); if (e.key === 'Escape' && !$('nightModal').hidden) $('nightModal').hidden = true; });
 
   /* ---- Game Night: host picks games and rounds; friends join with the code ---- */
-  var NIGHT_GAMES = ['fake', 'mafia', 'backgammon', 'words', 'draw', 'eights', 'trivia', 'letters', 'cluecards', 'imposter', 'closest', 'liars', 'spade', 'president', 'ludo', 'dominoes', 'four', 'checkers', 'dots', 'mancala', 'codebreaker', 'memory'];
+  var NIGHT_GAMES = ['bomb', 'fake', 'mafia', 'backgammon', 'words', 'draw', 'eights', 'trivia', 'letters', 'cluecards', 'imposter', 'closest', 'liars', 'spade', 'president', 'ludo', 'dominoes', 'four', 'checkers', 'dots', 'mancala', 'codebreaker', 'memory'];
   var PRESETS = {
     party: [['imposter', 2], ['draw', 1], ['trivia', 1], ['cluecards', 1], ['letters', 1]],
     brain: [['four', 2], ['codebreaker', 2], ['checkers', 1], ['mancala', 1]],
